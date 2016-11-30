@@ -44,7 +44,7 @@ public class SplashActivity extends Activity {
 	 * 给控件初始化数据。
 	 */
 	private void initDate() {
-		// 应用版本名称
+		// 获取应用版本名称
 		getVersionName();
 
 	}
