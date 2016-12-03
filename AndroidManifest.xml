@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zrblog.mobilesafe74"
-    android:versionCode="1"
-    android:versionName="1.0.0" >
+    android:versionCode="2"
+    android:versionName="2.0.0" >
 
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="21" />
 
-        <!-- android:theme="@android:style/Theme.Light.NoTitleBar"  该种样式虽然可以去头，但是样式不好看-->
-        <!-- 又要保留高版本的样式主题，又要去头，该怎么操作呢，在AppTheme的样式中添加去头的  <item name="android:windowNoTitle">true</item>-->
+    <!-- android:theme="@android:style/Theme.Light.NoTitleBar"  该种样式虽然可以去头，但是样式不好看 -->
+    <!-- 又要保留高版本的样式主题，又要去头，该怎么操作呢，在AppTheme的样式中添加去头的  <item name="android:windowNoTitle">true</item> -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -23,6 +27,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name="com.zrblog.mobilesafe74.activity.HomeActivity" >
         </activity>
     </application>
 
