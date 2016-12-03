@@ -22,6 +22,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -102,6 +103,9 @@ public class SplashActivity extends Activity {
 
 	}
 
+	/**
+	 * 弹出提示框，提示用户更新。
+	 */
 	protected void showUpdateDialog() {
 		Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("提示升级").setMessage(mVersionDes)
@@ -118,7 +122,17 @@ public class SplashActivity extends Activity {
 						// 跳转到主界面。
 						entryHome();
 					}
-				}).show();
+				});
+		builder.setOnCancelListener(new OnCancelListener() {
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				// 用户点击取消按钮，也需要让程序进入主界面。
+				entryHome();
+				dialog.cancel();
+			}
+		});
+
+		builder.show();
 	}
 
 	/**
@@ -135,74 +149,78 @@ public class SplashActivity extends Activity {
 	protected void downloadApk() {
 		// apk下载连接地址。放置apk所在路径。
 		// 1.判断sd卡是否可用，是否挂载上。
-//		if (Environment.getExternalStorageDirectory().equals(
-//				Environment.MEDIA_MOUNTED)) {
-//			// 2.获取sd的文件路径。
-//			// Environment.getExternalStorageDirectory().getAbsoluteFile()+File.separator+"mobilesafe74.apk";
-//			String path = Environment.getExternalStorageDirectory()
-//					.getAbsoluteFile() + File.separator + "mobilesafe74.apk";
-		String path = Environment.getExternalStorageDirectory()+File.separator+"mobilesafe74.apk";
+		// if (Environment.getExternalStorageDirectory().equals(
+		// Environment.MEDIA_MOUNTED)) {
+		// // 2.获取sd的文件路径。
+		// //
+		// Environment.getExternalStorageDirectory().getAbsoluteFile()+File.separator+"mobilesafe74.apk";
+		// String path = Environment.getExternalStorageDirectory()
+		// .getAbsoluteFile() + File.separator + "mobilesafe74.apk";
+		String path = Environment.getExternalStorageDirectory()
+				+ File.separator + "mobilesafe74.apk";
 
-			// 3.发送请求，获取apk，并且放置到指定路径
-			HttpUtils httpUtils = new HttpUtils();
-			// 4.发送请求，传递参数，（下载地址，下载应用放置的位置）
-			Log.v("paht", path);
-			Log.v("mDownloadUrl", mDownloadUrl);
-			httpUtils.download(mDownloadUrl, path, new RequestCallBack<File>() {
-				@Override
-				public void onSuccess(ResponseInfo<File> responseInfo) {
-					// 下载成功
-					Log.v("TAG", "下载成功！！！");
-					File file = responseInfo.result;
-					installApk(file);
-				}
+		// 3.发送请求，获取apk，并且放置到指定路径
+		HttpUtils httpUtils = new HttpUtils();
+		// 4.发送请求，传递参数，（下载地址，下载应用放置的位置）
+		Log.v("paht", path);
+		Log.v("mDownloadUrl", mDownloadUrl);
+		httpUtils.download(mDownloadUrl, path, new RequestCallBack<File>() {
+			@Override
+			public void onSuccess(ResponseInfo<File> responseInfo) {
+				// 下载成功
+				Log.v("TAG", "下载成功！！！");
+				File file = responseInfo.result;
+				installApk(file);
+			}
 
-				@Override
-				public void onFailure(HttpException arg0, String arg1) {
-					Log.v("TAG", "下载失败！！！");
-					// 下载失败
-				}
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				Log.v("TAG", "下载失败！！！");
+				// 下载失败
+			}
 
-				@Override
-				public void onStart() {
-					Log.v("TAG", "刚刚开始下载！！！");
-					// 开始下载。
-					super.onStart();
-				}
+			@Override
+			public void onStart() {
+				Log.v("TAG", "刚刚开始下载！！！");
+				// 开始下载。
+				super.onStart();
+			}
 
-				// 下载过程中的方法
-				@Override
-				public void onLoading(long total, long current,
-						boolean isUploading) {
-					Log.v("TAG", "下载中！！！");
-					Log.i("TAG", "Total"+Long.toString(total));
-					Log.i("TAG", "Current"+Long.toString(current));
-					super.onLoading(total, current, isUploading);
-				}
-			});
-		}
-//	}
+			// 下载过程中的方法
+			@Override
+			public void onLoading(long total, long current, boolean isUploading) {
+				Log.v("TAG", "下载中！！！");
+				Log.i("TAG", "Total" + Long.toString(total));
+				Log.i("TAG", "Current" + Long.toString(current));
+				super.onLoading(total, current, isUploading);
+			}
+		});
+	}
+
+	// }
 
 	protected void installApk(File file) {
-//		Intent intent = new Intent(Intent.ACTION_VIEW);
-//		intent.addCategory("android.intent.category.DEFAULT");
-//		
-//		intent.setData(Uri.fromFile(file));
-//		
-//		intent.setType("application/vnd.android.package-archive");
-//		
-//		startActivity(intent);
-		
-		//系统应用界面,源码,安装apk入口
+		// //系统应用界面,源码,安装apk入口
 		Intent intent = new Intent("android.intent.action.VIEW");
 		intent.addCategory("android.intent.category.DEFAULT");
-		/*//文件作为数据源
-		intent.setData(Uri.fromFile(file));
-		//设置安装的类型
-		intent.setType("application/vnd.android.package-archive");*/
-		intent.setDataAndType(Uri.fromFile(file),"application/vnd.android.package-archive");
-//		startActivity(intent);
-		startActivity(intent);		
+		// /*//文件作为数据源
+		// intent.setData(Uri.fromFile(file));
+		// //设置安装的类型
+		// intent.setType("application/vnd.android.package-archive");
+		intent.setDataAndType(Uri.fromFile(file),
+				"application/vnd.android.package-archive");
+		// startActivity(intent);
+		startActivityForResult(intent, 0);
+		// startActivity(intent);
+	}
+
+	/*
+	 * 安装apk的activity，返回一个消息到spalshactivity中。 用于接收消息。
+	 */
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		entryHome();
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 	/**
