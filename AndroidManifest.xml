@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zrblog.mobilesafe74"
-    android:versionCode="1"
-    android:versionName="1.0.0" >
+    android:versionCode="2"
+    android:versionName="2.0.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="14"
         android:targetSdkVersion="21" />
 
     <!-- android:theme="@android:style/Theme.Light.NoTitleBar"  该种样式虽然可以去头，但是样式不好看 -->
-    <!-- 又要保留高版本的样式主题，又要去头，该怎么操作呢，在AppTheme的样式中添加去头的  <item name="android:windowNoTitle">true</item>
-    签名文件：密码：kye055947 -->
+    <!--
+    又要保留高版本的样式主题，又要去头，该怎么操作呢，在AppTheme的样式中添加去头的  <item name="android:windowNoTitle">true</item>
+    签名文件：密码：kye055947
+    -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
 
     <application
         android:allowBackup="true"
@@ -30,6 +34,20 @@
             </intent-filter>
         </activity>
         <activity android:name="com.zrblog.mobilesafe74.activity.HomeActivity" >
+        </activity>
+        <activity android:name="com.zrblog.mobilesafe74.activity.SettingActivity" >
+        </activity>
+        <activity android:name="com.zrblog.mobilesafe74.activity.SetupOverActivity" >
+        </activity>
+        <activity android:name="com.zrblog.mobilesafe74.activity.SetupOneActivity" >
+        </activity>
+        <activity android:name="com.zrblog.mobilesafe74.activity.SetupThreeActivity" >
+        </activity>
+        <activity android:name="com.zrblog.mobilesafe74.activity.SetupTwoActivity" >
+        </activity>
+        <activity android:name="com.zrblog.mobilesafe74.activity.SetupFourActivity" >
+        </activity>
+        <activity android:name="com.zrblog.mobilesafe74.activity.SelectContentActivity" >
         </activity>
     </application>
 
