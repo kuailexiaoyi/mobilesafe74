@@ -6,10 +6,51 @@
 
     <TextView
         android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+        style="@style/TitleTheme"
+        android:text="功能列表"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- andorid:ellipsize = "end"添加省略点的位置 -->
+    <!-- 想让文字出现跑马灯效果，必须让其获取焦点 -->
+    <!-- android:marqueeRepeatLimit="marquee_forever"一直滚动属性 -->
+    <!-- 自动以控件达到 -->
+
+
+    <!--
+         <TextView 
+        android:id="@+id/tv_textview"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#00f"
         android:textSize="20sp"
-        android:text="Welcome to HomeActivity!" />
+        android:singleLine="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:text="你若安好,便是晴天。人生没有彩排,每一天都是现场直播"
+        android:background="#7FFFAA"/>
+    -->
+
+    <com.zrblog.mobilesafe74.view.FocusTextView
+        android:id="@+id/tv_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#7FFFAA"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:singleLine="true"
+        android:text="你若安好,便是晴天。人生没有彩排,每一天都是现场直播,人生就像一杯茶，不会苦一辈子，但总会苦一阵子。7、人生如果错了方向，停止就是进步。"
+        android:textSize="20sp" />
+
+    <GridView
+        android:id="@+id/gv_home"
+        android:layout_marginTop="20sp"
+        android:layout_margin="10sp"
+        android:verticalSpacing="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="3" >
+    </GridView>
 
 </LinearLayout>
